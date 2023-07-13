@@ -9,7 +9,7 @@
 const prompt = require("prompt-sync")();
 
 const ROWS = 3;
-const CALLS = 3;
+const COLS = 3;
 
 const SYMBOLS_COUNT = {
     "A": 2,
@@ -80,8 +80,16 @@ const spin = () => {
 
     const reels = [[],[],[]];
     for (let i = 0; i < COLS; i++) {
-        
+        const reelSymbols = [...symbols];
+        for (let j = 0; j < ROWS; j++) {
+            const randomIndex = Math.floor(random() * reelSymbols.length);
+            const selectedSymbols = reelSymbols[randomIndex];
+            reels[i].push(selectedSymbols);
+            reelSymbols.splice(randomIndex, 1);
+        }
     }
+
+    return reels;
 };
 
 
