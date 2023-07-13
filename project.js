@@ -8,7 +8,8 @@
 
 const prompt = require("prompt-sync")();
 
-
+const ROWS = 3;
+const CALLS = 3;
 
 
 
