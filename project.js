@@ -49,7 +49,7 @@ const getNumberOfLines = () => {
         const lines = prompt("Enter the number of lines to bet on (1-3): ")
         const numberOfLines = parseFloat(lines);
     
-        if (isNaN(numberOfLines) || numberOfLines <= 0 || numberOfLines > 3) {
+        if (isNaN(numberOfLines) || numberOfLines <= 0 || numberOfLines > ROWS) {
             console.log("Invalid number of lines, try again");
         } else {
             return numberOfLines;
@@ -83,7 +83,7 @@ const spin = () => {
         reels.push([]);
         const reelSymbols = [...symbols];
         for (let j = 0; j < ROWS; j++) {
-            const randomIndex = Math.floor(random() * reelSymbols.length);
+            const randomIndex = Math.floor(Math.random() * reelSymbols.length);
             const selectedSymbols = reelSymbols[randomIndex];
             reels[i].push(selectedSymbols);
             reelSymbols.splice(randomIndex, 1);
@@ -106,8 +106,23 @@ const transpose = (reels) => {
     return rows;
 }
 
+const printRows = (rows) => {
+    for (const row of rows) {
+        let rowString = "";
+        for (const [i, symbol] of row.entries()) {
+            rowString += symbol
+            if (i != row.length - 1) {
+                rowString += " | ";
+            }
+        }
+    }
+}
+
 
 let balance = deposit();
 const numberOfLines = getNumberOfLines();
 const bet = getBet(balance, numberOfLines);
 const reels = spin();
+const rows = transpose(reels);
+console.log(reels);
+console.log(rows);
